@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>DataDictionary · FINOS glue</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="| Create Table if NOT EXISTS| Primary Key (&#x27;id&#x27;)|.|ENGINE = InnoDB|.|"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="DataDictionary · FINOS glue"/><meta property="og:type" content="website"/><meta property="og:url" content="https://finos.github.io/glue/glue/"/><meta property="og:description" content="| Create Table if NOT EXISTS| Primary Key (&#x27;id&#x27;)|.|ENGINE = InnoDB|.|"/><meta property="og:image" content="https://finos.github.io/glue/glue/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://finos.github.io/glue/glue/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/glue/img/favicon/favicon-finos.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/glue/js/scrollSpy.js"></script><link rel="stylesheet" href="/glue/css/main.css"/><script src="/glue/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/glue/"><img class="logo" src="/glue/img/favicon/favicon-finos.ico" alt="FINOS glue"/><h2 class="headerTitleWithLogo">FINOS glue</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/glue/docs/home" target="_self">Docs</a></li><li class=""><a href="/glue/docs/roadmap" target="_self">Roadmap</a></li><li class=""><a href="/glue/docs/team" target="_self">Team</a></li><li class=""><a href="https://github.com/finos/glue" target="_self">GitHub</a></li><li class=""><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">DataDictionary</h1></header><article><div><span><pre><code class="hljs">    | Create Table if NOT EXISTS| Primary Key ('id')|.|ENGINE = InnoDB|.|
+    |---|---|---|---|---|
+    |Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+    ||
+    | Address|`id` |BIGINT(12)| PK, NN|.|
+    | Address|`Primary`| TINYINT |NULL|.|
+    | Address|`po_box`| VARCHAR(45)| NULL|.|
+    | Address|`Addressline 1` |VARCHAR(45)| NULL|.|
+    | Address|`Addressline 2` |VARCHAR(45)| NULL|.|
+    | Address|`Street_Number`| INT| NULL|.|
+    | Address|`zip_code`| VARCHAR(45)| NULL|.|
+    | Address|`City` |BIGINT(12) |NULL|.|
+    | Address|`Country`| BIGINT(12)| NULL|.|
+    | Address|`Region` |BIGINT(12)| NULL|.|
+    | Address|`Latitude`| DECIMAL| NULL|.|
+    | Address|`Longitude`| DECIMAL |NULL|.|
+    | Address|`Person` |BIGINT(12)| NULL|.|
+    | Address|`Address_Type`| BIGINT(12)| NULL|.|
+    |For Table: ADDRESS:|
+    |CONSTRAINT|FOREIGN KEY|REFERENCES |ON DELETE|ON UPDATE|
+    |`Person_PII`|('Person')|`Person_PII` (`id`)|NO ACTION| NO ACTION|
+    |`Address_type`|('Address_type`)| `Address_Type` (`Id`)|NO ACTION| NO ACTION|
+    |`Country`|(`Country`)|`Country` (`id`)|NO ACTION| NO ACTION|
+    |`City`|(`City`)|`City` (`id`)|NO ACTION| NO ACTION|
+    |`Region`|(`Region`)|`Region` (`id`)|NO ACTION| NO ACTION|
+    |For Table: ADDRESS:|
+    |CREATE INDEX|ON|ASC|VISABLE|.|
+    |`Person_idx`|`Address`|(`Person` ASC)|VISIBLE;|.|
+    |`Address_type_idx`|`Address`|(`Address_Type` ASC)|VISIBLE;|.|
+    |`Country_idx`|`Address` |(`Country` ASC)|VISIBLE;|.|
+    |`City_idx`|`Address`|(`City` ASC)|VISIBLE;|.|
+    |`Region_idx`|`Address`|(`Region` ASC)|VISIBLE;|.|
+    ||
+    |Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+    ||
+    |Address_Type   |`Id` | BIGINT(12)  |PK, NN|.|
+
+    |Address_Type|`Name` |  VARCHAR(45)|    Null|.|
+    ||
+    |Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+    ||
+    |`Asset_Classification_Node`|`id` |BIGINT(12)|PK, NN|.|
+    |`Asset_Classification_Node`|`Node_Name`| VARCHAR(45) |NULL|.|
+    |`Asset_Classification_Node`|`Regime` |BIGINT(12)| NULL|.|
+    |`Asset_Classification_Node`|`Asset_Classification_Regime_Structurecol`| BIGINT(12)| NULL|.|
+    |`Asset_Classification_Node`|`Benchmark`| BIGINT(12)| NULL|.|
+    |For Table: `Asset_Classification_Node`|
+    |CONSTRAINT|FOREIGN KEY|REFERENCES |ON DELETE|ON UPDATE|
+    |`Regime`|(`Regime`)|`Asset_Classification_Regime` (`id`)|NO ACTION| NO ACTION|
+    |`NodeBenchmark`|(`Benchmark`)|`Benchmark` (`id`)|NO ACTION| NO ACTION|
+    |For Table: `Asset_Classification_Node`|
+    |CREATE INDEX|ON|ASC|VISABLE|.|
+    |`Regime_idx`|`Asset_Classification_Node`|(`Regime` ASC)|VISIBLE;|.|
+    |`Benchmark_idx`|`Asset_Classification_Node`|(`Benchmark` ASC)| VISIBLE;|.|
+    ||
+    |Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+    ||
+    |`Asset_Classification_Regime`|`id` |BIGINT(12)|PK, NN|.|
+    |`Asset_Classification_Regime`|`Name`| VARCHAR(45)| NULL|.|
+    |`Asset_Classification_Regime`|`Owner`| BIGINT(12)| NULL|.|
+    |`Asset_Classification_Regime`|`Depth`|INT| NULL|.|
+    ||
+    |Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+    ||
+    |`Asset_Classification_Structure`|`id`| BIGINT(12)|PK, NN|.|
+    |`Asset_Classification_Structure`|`Parent`| BIGINT(12)| NULL|.|
+    |`Asset_Classification_Structure` |`Child` |BIGINT(12)| NULL|.|
+    |`Asset_Classification_Structure` |`Level`| INT| NULL|.|
+    |For Table:`Asset_Classification_Structure`|
+    |CONSTRAINT|FOREIGN KEY|REFERENCES |ON DELETE|ON UPDATE|
+    |`ACParent`|(`Parent`)|`Asset_Classification_Node` (`id`)|NO ACTION| NO ACTION|
+    |`ACChild`|(`Child`)|`Asset_Classification_Node` (`id`)|NO ACTION| NO ACTION|
+    |For Table:`Asset_Classification_Structure`|
+    |CREATE INDEX|ON|ASC|VISABLE|.|
+    |`Node_idx`|`Asset_Classification_Structure`|(`Parent` ASC)|VISIBLE;|.|
+    |`Child_idx`|`Asset_Classification_Structure`|(`Child` ASC)|VISIBLE;|.|
+    ||
+    |Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+    ||
+    |`BP-Relationship_Type`|`id`| BIGINT(12)|PK, NN|.|
+    |`BP-Relationship_Type`|`Name`|BIGINT(12)|NULL|.|
+    ||
+    |Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+    ||
+    |`Bank_Employee`|`id`| BIGINT(12)|PK, NN|.|
+    |`Bank_Employee`|`Job_Function`| BIGINT(12)| NULL|.|
+    |`Bank_Employee`|`Rank` |BIGINT(12)| NULL|.|
+    |`Bank_Employee`|`Person`| BIGINT(12)| NULL|.|
+    |For Table:`Bank_Employee`|
+    |CONSTRAINT|FOREIGN KEY|REFERENCES |ON DELETE|ON UPDATE|
+    |`BEPerson`|(`Person`)|`Person` (`id`)|NO ACTION| NO ACTION|
+    |For Table:`Bank_Employee`|
+    |CREATE INDEX|ON|ASC|VISABLE|.|
+    |`Person_idx`|`Bank_Employee`|(`Person` ASC)|VISIBLE;|.|
+    ||
+    |Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+    ||
+    |`Benchmark`|`id` |BIGINT(12) |PK,NN|.|
+    |`Benchmark`|`Name` |VARCHAR(45)| NULL|.|
+    |`Benchmark`| `Is_Composit`| TINYINT |NULL|.|
+    ||
+    |Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+    |`Benchmark_Constituent`|`id`| BIGINT(12)| NPK, NN|.|
+    |`Benchmark_Constituent`| `Instrument`| BIGINT(12)| NULL|.|
+    |`Benchmark_Constituent`| `Weight`| DECIMAL |NULL|.|
+    |`Benchmark_Constituent`|`Benchmark`| BIGINT(12)| NULL|.|
+    |For Table:`Benchmark_Constituent`|
+    |CONSTRAINT|FOREIGN KEY|REFERENCES |ON DELETE|ON UPDATE|
+    |`ConstituentBenchmark`|(`Benchmark`)|`Benchmark` (`id`)|NO ACTION| NO ACTION|
+    |For Table:`Benchmark_Constituent`|
+    |CREATE INDEX|ON|ASC|VISABLE|.|
+</code></pre>
+<p>|<code>Benchmark_idx</code>|<code>Benchmark_Constituent</code>|(<code>Benchmark</code> ASC)| VISIBLE;|.|
+||
+|Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Book</code>|<code>id</code>|BIGINT(12)| PK, NN|.|
+|<code>Book</code>|<code>Name</code>| VARCHAR(45)| NULL|.|
+|<code>Book</code>|<code>OE’| BIGINT(12)| NULL|.| |For Table:</code>Book’|<br>
+|CONSTRAINT|FOREIGN KEY|REFERENCES |ON DELETE|ON UPDATE|
+|<code>OE</code>|(<code>OE</code>)|<code>Organizational_Entitiy</code> (<code>id</code>)| NO ACTION| NO ACTION|
+| For Table:<code>Book’| |CREATE INDEX|ON|ASC|VISABLE|.| |</code>OE_idx<code>|</code>Book<code>| (</code>OE<code>ASC)| VISIBLE;|.| || |Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.| || |</code>Business_Partner<code>|</code>id<code>| BIGINT(12)|PK,NN|.| |</code>Business_Partner<code>|</code>Internal_ID<code>| VARCHAR(45)| NULL|.| |</code>Business_Partner|<code>Nickname</code>| VARCHAR(45)| NULL|.|
+|<code>Business_Partner|</code>Currency<code>| BIGINT(12)| NULL|.| |</code>Business_Partner|<code>Business_Partner_Type</code> |BIGINT(12)|NULL|.|<br>
+| For Table:<code>Business_Partner’| | CONSTRAINT|FOREIGN KEY|REFERENCES |ON DELETE|ON UPDATE| |</code>BPType| (<code>Business_Partner_Type</code>)| <code>Business_Partner_Type</code> (<code>id</code>)| NO ACTION| NO ACTION|
+| For Table:<code>Business_Partner’| | CREATE INDEX|ON|ASC|VISABLE|.| |</code>Type_idx<code>|</code>Business_Partner<code>| (</code>Business_Partner_Type<code>ASC)| VISIBLE;|.| || |Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.| || |</code>Business_Partner_Structure<code>|</code>id<code>| BIGINT(12) |PK, NN|.| |</code>Business_Partner_Structure<code>|</code>Parent<code>| BIGINT(12)| NULL|.| |</code>Business_Partner_Structure<code>|</code>Child<code>| BIGINT(12)| NULL|.| |</code>Business_Partner_Structure<code>|</code>Level<code>| BIGINT(12)| NULL|.| |</code>Business_Partner_Structure<code>|</code>Relationship_Type<code>| BIGINT(12) |NULL|.| |For Table:</code>Business_Partner_Structure<code>| | CONSTRAINT|FOREIGN KEY|REFERENCES |ON DELETE|ON UPDATE| |</code>ParentBP<code>| (</code>Parent<code>)|</code>Business_Partner<code>(</code>id<code>)| NO ACTION| NO ACTION| |</code>ChildBP<code>| (</code>Child<code>)|</code>Business_Partner<code>(</code>id<code>)| NO ACTION| NO ACTION| |</code>Relationship_Type<code>| (</code>Relationship_Type<code>)|</code>BP-Relationship_Type<code>(</code>id<code>)| NO ACTION| NO ACTION| |For Table:</code>Business_Partner_Structure|<br>
+| CREATE INDEX|ON|ASC|VISABLE|.|
+| <code>Parent_idx</code>| <code>Business_Partner_Structure</code>| (<code>Parent</code> ASC)| VISIBLE;|.|
+|<code>Child_idx</code> |<code>Business_Partner_Structure</code>| (<code>Child</code> ASC)| VISIBLE;|.|
+|<code>Relationship_Type_idx</code> |<code>Business_Partner_Structure</code>| (<code>Relationship_Type</code> ASC) VISIBLE;|.|
+||
+|Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Business_Partner_To_Person</code>|<code>id</code>| BIGINT(12)|PK, NN|.|
+|<code>Business_Partner_To_Person</code>|<code>Business_Partner</code>| BIGINT(12)| NULL|.|
+|<code>Business_Partner_To_Person</code>|Person| BIGINT(12) |NULL|.|
+|<code>Business_Partner_To_Person</code>| <code>Relationship_Type</code>| BIGINT(12)| NULL |.|<br>
+|For Table: <code>Business_Partner_To_Person</code>|
+| CONSTRAINT|FOREIGN KEY|REFERENCES |ON DELETE|ON UPDATE|
+|<code>Business_Partner</code>|(<code>Business_Partner</code>)|<code>Business_Partner</code> (<code>id</code>)| NO ACTION| NO ACTION|
+|<code>BP_P_Relationship_Type</code>|(<code>Relationship_Type</code>)|<code>Business_Partner_To_Person_Relationship_Type</code> (<code>id</code>)| NO ACTION| NO ACTION|
+| <code>BP_P_Person</code>| (<code>Person</code>)| <code>Person</code> (<code>id</code>)| NO ACTION| NO ACTION|
+|For Table: <code>Business_Partner_To_Person</code>|
+| CREATE INDEX|ON|ASC|VISABLE|.|
+| <code>Business_Partner_idx</code>| <code>Business_Partner_To_Person</code>| (<code>Business_Partner</code> ASC)| VISIBLE;|.|
+| <code>Relationship_Type_idx</code>| <code>Business_Partner_To_Person</code>| (<code>Relationship_Type</code> ASC)| VISIBLE;|.|
+| <code>Person_idx</code>|<code>Business_Partner_To_Person</code>| (<code>Person</code> ASC)| VISIBLE|.|
+||
+|Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Business_Partner_To_Person_Relationship_Type</code>|<code>id</code> |BIGINT(12) |PK, NN|.|
+|<code>Business_Partner_To_Person_Relationship_Type</code>|<code>Name</code>|VARCHAR(45)| NULL|.|
+||
+|Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Business_Partner_Type</code>|<code>id</code> |BIGINT(12)| PK, NN|.|
+|<code>Business_Partner_Type</code>|<code>Name</code>|VARCHAR(45)| NULL|.|
+||
+|Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>CMA_Set</code>|<code>id</code>| BIGINT(12)|PK, NN |.|
+|<code>CMA_Set</code>|<code>Name</code> |VARCHAR(45)| NULL|.|
+|<code>CMA_Set</code>|<code>Owner</code>| BIGINT(12)| NULL|.|<br>
+|<code>CMA_Set</code>|<code>Asset_Classification_Regime</code>|BIGINT(12)| NULL|.|
+|<code>CMA_Set</code>|<code>Type</code>| ENUM(&quot;Szenario&quot;, &quot;CMA&quot;)| NULL|.|
+|<code>CMA_Set</code>|<code>Description</code>| TINYBLOB| NULL|.|
+|For Table:<code>CMA_Set</code>|
+|CONSTRAINT|FOREIGN KEY|REFERENCES |ON DELETE|ON UPDATE|
+|<code>Asset_Classification_Regime</code>|(<code>Asset_Classification_Regime</code>)|<code>Asset_Classification_Regime</code> (<code>id</code>)| NO ACTION| NO ACTION|
+|For Table:<code>CMA_Set</code>|
+| CREATE INDEX|ON|ASC|VISABLE|.|
+|<code>Asset_Classification_Regime_idx</code>|<code>CMA_Set</code>| (<code>Asset_Classification_Regime</code> ASC)| VISIBLE|.|
+||
+|Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>CMA_Set_Hierachy</code>|<code>id</code>|BIGINT(12)| PK, NN|.|
+|<code>CMA_Set_Hierachy</code>|<code>Parent</code>| BIGINT(12) |NULL|.|
+|<code>CMA_Set_Hierachy</code>|<code>Child</code>| BIGINT(12) |NULL|.|<br>
+|For Table:<code>CMA_Set_Hierachy</code>|
+| CONSTRAINT|FOREIGN KEY|REFERENCES |ON DELETE|ON UPDATE|
+|<code>Parent</code>|(<code>Parent</code>)|<code>CMA_Set</code> (<code>id</code>)| NO ACTION| NO ACTION|
+| <code>Child</code>|( <code>Child</code>)| <code>CMA_Set</code> (<code>id</code>)| NO ACTION| NO ACTION|
+|For Table:<code>CMA_Set_Hierachy</code>|
+|CREATE INDEX|ON|ASC|VISABLE|.|
+|<code>Parent_idx</code>|<code>CMA_Set_Hierachy</code>|(<code>Parent</code> ASC)|VISIBLE|.|
+|<code>Child_idx</code>|<code>CMA_Set_Hierachy</code>|(<code>Child</code> ASC)|VISIBLE|.|
+||
+|Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Citizenship</code>|<code>id</code>| BIGINT(12)|PK, NN|.|
+|<code>Citizenship</code>|<code>Name</code>| VARCHAR(45)|NULL|.|
+|<code>Citizenship</code>|<code>Person</code>| BIGINT(12)|NULL|.|
+|<code>Citizenship</code>|<code>Type</code>|BIGINT(12)|NULL|.|<br>
+|For Table:<code>Citizenship</code>|
+|CONSTRAINT|FOREIGN KEY|REFERENCES|ON DELETE|ON UPDATE|
+|<code>CitizenshipPerson</code>|(<code>Person</code>)|<code>Person_PII</code> (<code>id</code>)|NO ACTION| NO ACTION|
+| <code>CitizenshipType</code>|(<code>Type</code>)| <code>Citizenship_Type</code> (<code>id</code>)|NO ACTION| NO ACTION|
+|For Table:<code>Citizenship</code>|
+|CREATE INDEX|ON|ASC|VISABLE|.|
+|<code>Person_idx</code>|<code>Citizenship</code>|(<code>Person</code> ASC)|VISIBLE|.|
+|<code>Type_idx</code>|<code>Citizenship</code>|(<code>Type</code> ASC)|VISIBLE|.|
+||
+|Table Name | Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Citizenship_Type</code>|<code>id</code>| BIGINT(12)|PK, NN|.|
+|<code>Citizenship_Type</code>|<code>Name</code>| VARCHAR(45)|NULL|.|
+||
+|Table Name|Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>City</code>|<code>id</code>| BIGINT(12)|PK, NN|.|
+|<code>City</code>|<code>Name</code>| VARCHAR(45)|NULL|.|
+||
+|Table Name|Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Country</code>|<code>id</code>| BIGINT(12)|PK, NN|.|
+|<code>Country</code>|<code>Name</code>| VARCHAR(45)|NULL|.|
+||
+|Table Name|Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Credit_Limit</code>|<code>id</code>|BIGINT(12)|PK, NN|COMMENT 'Contains the credit limit objects'|
+|<code>Credit_Limit</code>|<code>credit_limit_identier_id</code>| BIGINT(12)| NULL |COMMENT 'ID of credit limit identifier'|
+|<code>Credit_Limit</code>|<code>portfolio_id</code>|BIGINT(12)| NULL |COMMENT 'ID of the portfolio'|
+|<code>Credit_Limit</code>|<code>granted_limit</code>|DECIMAL(25,9)|NULL|COMMENT 'Maximum lending limit of the portfolio\n'|
+|<code>Credit_Limit</code>|<code>lending_value</code>|DECIMAL(25,9)|NULL|COMMENT 'Maximum aggregated lending value of the portfolio\n'|
+|For Table: <code>Credit_Limit</code>|
+|CONSTRAINT|FOREIGN KEY|REFERENCES|ON DELETE|ON UPDATE|
+|<code>portfolio_id</code>|(<code>portfolio_id</code>)|<code>Portfolio</code> (<code>id</code>)|NO ACTION|NO ACTION|
+|For Table: <code>Credit_Limit</code>|
+|CREATE INDEX|ON|ASC|VISABLE|.|
+|<code>portfolio_id_idx</code>|<code>Credit_Limit</code>|(<code>portfolio_id</code> ASC)| VISIBLE;|.|
+||
+|Table Name|Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Currency</code>|<code>id</code>|BIGINT(12)|PK, NN|AUTO_INCREMENT COMMENT 'Contains the external identifier of currency objects'|
+|<code>Currency</code>|<code>Name</code>|VARCHAR(45)|NULL|.|
+||
+|Table Name|Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Currency_Identifier</code>|<code>id</code>|BIGINT(12)|PK, NN|COMMENT 'Contains the external identifier of credit limits'|
+|<code>Currency_Identifier</code>|<code>currency_id</code>|BIGINT(12)|NN|.|
+|<code>Currency_Identifier</code>|<code>currency_identifier_type_id</code>|BIGINT(12)|NN|.|
+|For Table: <code>Currency_Identifier</code>|
+|CONSTRAINT|FOREIGN KEY|REFERENCES|ON DELETE|ON UPDATE|
+|<code>Identifier_Currency</code>|(<code>currency_id</code>)|<code>Currency</code> (<code>id</code>)|NO ACTION|NO ACTION|
+|<code>currency_identifier_type_id</code>|(<code>currency_identifier_type_id</code>)|<code>Currency_Identifier_Type</code> (<code>id</code>)|NO ACTION|NO ACTION|
+|For Table: <code>Currency_Identifier</code>|
+|CREATE INDEX|ON|ASC|VISABLE|.|
+|<code>currency_id_idx</code>|<code>Currency_Identifier</code>|(<code>currency_id</code> ASC)|VISIBLE|.|
+|<code>currency_identifier_type_id_idx</code>|<code>Currency_Identifier</code>|(<code>currency_identifier_type_id</code> ASC)|VISIBLE|.|
+||
+|Table Name|Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Currency_Identifier_Type</code>|<code>id</code>|BIGINT(12)|PK, NN|COMMENT 'Contains the country identifier types'|
+|<code>Currency_Identifier_Type</code>|<code>Identifier</code>|VARCHAR(6)|NULL|.|
+||
+|Table Name|Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Electronic_Address</code>|<code>id</code>|BIGINT(12)|PK, NN|.|
+|<code>Electronic_Address</code>|<code>Address</code>|VARCHAR(45)|NULL|.|
+|<code>Electronic_Address</code>|<code>Type</code>|BIGINT(12)|NULL|.|
+|<code>Electronic_Address</code>|<code>Name</code>|VARCHAR(45)|NULL|.|
+|<code>Electronic_Address</code>|<code>Person</code>|BIGINT(12)|NULL|.|
+|For Table:<code>Electronic_Address</code>|
+|CONSTRAINT|FOREIGN KEY|REFERENCES|ON DELETE|ON UPDATE|
+|<code>EA_Person_PII</code>|(<code>Person</code>)|<code>Person_PII</code> (<code>id</code>)|NO ACTION|NO ACTION|
+| <code>EAType</code>|(<code>Type</code>)| <code>Electronic_Address_Type</code> (<code>id</code>)| NO ACTION|NO ACTION|
+|For Table:<code>Electronic_Address</code>|
+|CREATE INDEX|ON|ASC|VISABLE|.|
+|<code>Person_idx</code>|<code>Electronic_Address</code>|(<code>Person</code> ASC)|VISIBLE|.|
+|<code>Type_idx</code>|<code>Electronic_Address</code>|(<code>Type</code> ASC)|VISIBLE|.|
+||
+|Table Name|Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Electronic_Address_Type</code>|<code>id</code>|BIGINT(12)|PK, NN|.|
+|<code>Electronic_Address_Type</code>|<code>Relationship_Type</code>|BIGINT(12)|NULL|.|
+|<code>Electronic_Address_Type</code>|<code>Employee</code>|BIGINT(12)|NULL|.|
+|<code>Electronic_Address_Type</code>|<code>OE</code>|BIGINT(12)|NULL|.|
+|For Table:<code>Electronic_Address_Type</code>|
+|CONSTRAINT|FOREIGN KEY|REFERENCES|ON DELETE|ON UPDATE|
+|<code>Employee_to_OE_OE</code>|(<code>OE</code>)|<code>Organizational_Entitiy</code> (<code>id</code>)| NO ACTION|NO ACTION|
+| <code>Employee</code>| (<code>Employee</code>)|<code>Bank_Employee</code> (<code>id</code>)| NO ACTION|NO ACTION|
+| <code>EmployeetoOEType</code>|(<code>Relationship_Type</code>)|<code>Employee_To_OE_Type</code> (<code>id</code>)| NO ACTION|NO ACTION|
+|For Table:<code>Electronic_Address_Type</code>|
+|CREATE INDEX|ON|ASC|VISABLE|.|
+|<code>OE_idx</code>|<code>Employee_To_OE</code>|(<code>OE</code> ASC)|VISIBLE|.|
+|<code>Employee_idx</code>|<code>Employee_To_OE</code>|(<code>Employee</code> ASC)| VISIBLE|.|
+|<code>Type_idx</code>|<code>Employee_To_OE</code>|(<code>Relationship_Type</code> ASC)|VISIBLE|.|
+||
+|Table Name|Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Employee_To_OE_Type</code>|<code>id</code>|BIGINT(12)|PK, NN|.|
+|<code>Employee_To_OE_Type</code>|<code>Name</code>|VARCHAR(45)|NULL|.|
+||
+|Table Name|Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||
+|<code>Fill</code>|<code>id</code>|BIGINT(12)|PK, NN|.|
+|<code>Fill</code>|<code>Date_Time</code>|DATETIME|NULL|.|
+|<code>Fill</code>|<code>ExternalID</code>|VARCHAR(45)|NULL|.|
+|<code>Fill</code>|<code>SequenceNumber</code>|BIGINT(6)|NULL|.|
+|<code>Fill</code>|<code>Quantity</code>|DECIMAL|NULL|.|
+|<code>Fill</code>|<code>Price</code>|DECIMAL|NULL|.|
+|<code>Fill</code>|<code>Currency</code>|BIGINT(12)|NULL|.|
+|<code>Fill</code>|<code>Comission</code>|DECIMAL|NULL|.|
+|<code>Fill</code>|<code>Comission_Currency</code>|BIGINT(12)|NULL|.|
+|<code>Fill</code>|<code>Fee</code>|DECIMAL|NULL|.|
+|<code>Fill</code>|<code>Fee_Currency</code>|BIGINT(12)|NULL|.|
+|<code>Fill</code>|<code>Order</code>|BIGINT(12)|NULL|.|
+|<code>Fill</code>|<code>Side</code>|VARCHAR(4)|NULL|.|
+|For Table:<code>Fill</code>|
+|CONSTRAINT|FOREIGN KEY|REFERENCES|ON DELETE|ON UPDATE|
+|<code>Order</code>|(<code>Order</code>)|<code>Order</code> (<code>id</code>)| NO ACTION|NO ACTION|
+|<code>Comission_Currency</code>|(<code>Comission_Currency</code>)|<code>Currency</code> (<code>id</code>)| NO ACTION|NO ACTION|
+|<code>FillCurrency</code>|(<code>Currency</code>)|<code>Currency</code> (<code>id</code>)| NO ACTION|NO ACTION|
+| <code>Fee_Currency</code>|( <code>Fee_Currency</code>)|<code>Currency</code> (<code>id</code>)| NO ACTION|NO ACTION|
+|For Table:<code>Fill</code>|
+|CREATE INDEX|ON|ASC|VISABLE|.|
+|<code>Order_idx</code>|<code>Fill</code>|(<code>Order</code> ASC)|VISIBLE|.|
+| <code>Comission_Currency_idx</code>|<code>Fill</code>| (<code>Comission_Currency</code> ASC)| VISIBLE|.|
+|<code>Currency_idx</code>|<code>Fill</code>|(<code>Currency</code> ASC)|VISIBLE|.|
+|<code>Fee_Currency_idx</code>|<code>Fill</code>|(<code>Fee_Currency</code> ASC)|VISIBLE|.|
+||
+|Table Name|Column Name| Data Type|PK Primary Key, NN-Not Null, Null|.|
+||</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/glue/" class="nav-home"><img src="/glue/img/favicon/favicon-finos.ico" alt="FINOS glue"/></a><div><h5>Docs</h5><a href="/glue/docs/home">Getting Started</a><a href="/glue/docs/team">Team</a><a href="/glue/docs/roadmap">Roadmap</a></div><div><h5>FINOS</h5><a href="https://www.finos.org/" target="_blank" rel="noreferrer noopener">FINOS Website</a><a href="https://finosfoundation.atlassian.net/wiki/spaces/FINOS/pages/80642059/Community+Handbook" target="_blank" rel="noreferrer noopener">Community Handbook</a><a href="https://finosfoundation.atlassian.net/wiki/spaces/FINOS/pages/75530783/Community+Governance" target="_blank" rel="noreferrer noopener">Community Governance</a></div><div><h5>More</h5><div class="social"><a class="github-button" href="https://github.com/finos/glue" data-count-href="https://github.com/finos/glue/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">glue</a></div><div class="social"><a href="https://twitter.com/FinosFoundation" class="twitter-follow-button">Follow @FinosFoundation</a></div><div class="social"><a href="https://www.linkedin.com/company/finosfoundation" class="linkedin-follow-button">FINOS on LinkedIn</a></div></div></section><section class="finos finosBanner"><a href="https://www.finos.org"><img id="finosicon" src="img/finos_wordmark.svg" height="75px" alt="FINOS" title="FINOS"/><h2 id="proud">Proud member of the Fintech Open Source Foundation</h2></a></section><section class="copyright">Copyright © 2020 glue - EPAM Systems, Inc.</section></footer></div><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script></body></html>
